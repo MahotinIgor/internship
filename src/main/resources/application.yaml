@@ -4,5 +4,9 @@ spring:
     url: jdbc:postgresql://localhost:5488/db
     username: user
     password: password
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
 server:
   port: 8081
