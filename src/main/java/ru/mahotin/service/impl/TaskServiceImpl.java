@@ -1,7 +1,7 @@
 package ru.mahotin.service.impl;
 
 import org.springframework.stereotype.Service;
-import ru.mahotin.TaskRepository;
+import ru.mahotin.repository.TaskRepository;
 import ru.mahotin.entity.Task;
 import ru.mahotin.exception.ResourceNotFoundException;
 import ru.mahotin.service.TaskService;
