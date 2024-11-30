@@ -1,6 +1,6 @@
 package ru.mahotin.exception;
 
-public class ResourceNotFoundException extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(
             final String message
     ) {

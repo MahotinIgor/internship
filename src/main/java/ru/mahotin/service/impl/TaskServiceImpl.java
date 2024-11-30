@@ -22,7 +22,9 @@ public class TaskServiceImpl implements TaskService {
     ) {
         return taskRepository
                 .findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User not found")
+                );
     }
 
     @Override
@@ -38,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(Task task, Long taskId) {
+    public Task update(final Task task, final Long taskId) {
 
         Task taskInDB = taskRepository
                 .findById(taskId)
