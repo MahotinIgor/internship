@@ -1,6 +1,7 @@
 package ru.mahotin.service.impl;
 
 import org.springframework.stereotype.Service;
+import ru.mahotin.aspect.LogCreateEntity;
 import ru.mahotin.repository.TaskRepository;
 import ru.mahotin.entity.Task;
 import ru.mahotin.exception.ResourceNotFoundException;
@@ -42,6 +43,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @LogCreateEntity
     public TaskDTO create(
             final TaskDTO taskDTO
     ) {
