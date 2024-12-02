@@ -1,4 +1,4 @@
-package ru.mahotin.controller;
+package ru.mahotin.web.controller;
 
 
 import org.springframework.http.HttpStatus;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mahotin.entity.Task;
 import ru.mahotin.service.TaskService;
+import ru.mahotin.web.dto.TaskDTO;
 
 import java.util.List;
 
@@ -27,18 +27,18 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public Task getTaskById(
+    public TaskDTO getTaskById(
             @PathVariable("id") final Long id
     ) {
         return taskService.getById(id);
     }
     @GetMapping()
-    public List<Task> getAllTask() {
+    public List<TaskDTO> getAllTask() {
         return taskService.getAll();
     }
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.create(task);
+    public TaskDTO createTask(@RequestBody TaskDTO taskDTO) {
+        return taskService.create(taskDTO);
     }
     @DeleteMapping("/{id}")
     public void deleteTaskById(
@@ -46,11 +46,11 @@ public class TaskController {
         taskService.delete(id);
     }
     @PutMapping("/{id}")
-    public Task updateTaskById(
+    public TaskDTO updateTaskById(
             @PathVariable("id") final Long id,
-            @RequestBody Task task
+            @RequestBody TaskDTO taskDTO
     ) {
-        return taskService.update(task, id);
+        return taskService.update(taskDTO, id);
 
     }
 
