@@ -1,6 +1,6 @@
 package ru.mahotin.web.mapper;
 
-public interface TaskMapper<E, D> {
+public interface TaskMapper<E, D, G> {
     E entityFromDto(D dto);
-    D dtoFromEntity(E entity);
+    G dtoFromEntity(E entity);
 }

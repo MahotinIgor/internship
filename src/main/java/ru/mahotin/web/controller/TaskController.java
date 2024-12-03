@@ -1,7 +1,7 @@
 package ru.mahotin.web.controller;
 
 
-import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mahotin.service.TaskService;
-import ru.mahotin.web.dto.TaskDTO;
+import ru.mahotin.web.dto.TaskGetDTO;
+import ru.mahotin.web.dto.TaskUpdateDTO;
 
 import java.util.List;
 
@@ -25,20 +25,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
-    public TaskDTO getTaskById(
+     @GetMapping("/{id}")
+    public TaskGetDTO getTaskById(
             @PathVariable("id") final Long id
     ) {
         return taskService.getById(id);
     }
     @GetMapping()
-    public List<TaskDTO> getAllTask() {
+    public List<TaskGetDTO> getAllTask() {
         return taskService.getAll();
     }
     @PostMapping
-    public TaskDTO createTask(@RequestBody TaskDTO taskDTO) {
-        return taskService.create(taskDTO);
+    public TaskGetDTO createTask(@RequestBody final TaskUpdateDTO taskUpdateDTO) {
+        return taskService.create(taskUpdateDTO);
     }
     @DeleteMapping("/{id}")
     public void deleteTaskById(
@@ -46,11 +45,11 @@ public class TaskController {
         taskService.delete(id);
     }
     @PutMapping("/{id}")
-    public TaskDTO updateTaskById(
+    public TaskGetDTO updateTaskById(
             @PathVariable("id") final Long id,
-            @RequestBody TaskDTO taskDTO
+            @RequestBody TaskUpdateDTO taskUpdateDTO
     ) {
-        return taskService.update(taskDTO, id);
+        return taskService.update(taskUpdateDTO, id);
 
     }
 

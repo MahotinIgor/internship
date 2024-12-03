@@ -1,14 +1,15 @@
 package ru.mahotin.service;
 
-import ru.mahotin.web.dto.TaskDTO;
+import ru.mahotin.web.dto.TaskGetDTO;
+import ru.mahotin.web.dto.TaskUpdateDTO;
 
 import java.util.List;
 
 
 public interface TaskService {
-    TaskDTO getById(Long id);
-    List<TaskDTO> getAll();
-    TaskDTO create(TaskDTO taskDTO);
-    TaskDTO update(TaskDTO taskDTO, Long taskId);
+    TaskGetDTO getById(Long id);
+    List<TaskGetDTO> getAll();
+    TaskGetDTO create(TaskUpdateDTO taskUpdateDTO);
+    TaskGetDTO update(TaskUpdateDTO taskUpdateDTO, Long taskId);
     void delete(Long id);
 }

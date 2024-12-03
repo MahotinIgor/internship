@@ -1,13 +1,15 @@
 package ru.mahotin.web.mapper.impl;
 
 import org.springframework.stereotype.Service;
+import ru.mahotin.aspect.LogTaskMapper;
 import ru.mahotin.entity.Task;
-import ru.mahotin.web.dto.TaskDTO;
+import ru.mahotin.web.dto.TaskGetDTO;
+import ru.mahotin.web.dto.TaskUpdateDTO;
 import ru.mahotin.web.mapper.TaskMapper;
 @Service
-public class TaskMapperImpl implements TaskMapper<Task, TaskDTO> {
+public class TaskMapperImpl implements TaskMapper<Task,TaskUpdateDTO, TaskGetDTO> {
 
-    public Task entityFromDto(TaskDTO dto) {
+    public Task entityFromDto(TaskUpdateDTO dto) {
         return new Task(
                 dto.title(),
                 dto.description(),
@@ -15,8 +17,10 @@ public class TaskMapperImpl implements TaskMapper<Task, TaskDTO> {
         );
     }
     @Override
-    public TaskDTO dtoFromEntity(Task entity) {
-        return new TaskDTO(
+    @LogTaskMapper
+    public TaskGetDTO dtoFromEntity(Task entity) {
+        return new TaskGetDTO(
+                entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getUserId()

@@ -17,10 +17,24 @@ public class Task {
     private String description;
     private Long userId;
 
+    public Long getId() {
+        return id;
+    }
+
     public Task() {
     }
 
-    public Task(String title, String description, Long userId) {
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
+
+    public Task(final String title, final String description, final Long userId) {
         this.title = title;
         this.description = description;
         this.userId = userId;
