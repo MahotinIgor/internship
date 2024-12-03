@@ -83,9 +83,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @LogDeleteTask
-    public void delete(
-            final Long id
-    ) {
+    public void delete(final Long id) {
         taskRepository.deleteById(id);
     }
 }

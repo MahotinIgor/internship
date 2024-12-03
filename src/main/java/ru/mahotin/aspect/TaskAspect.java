@@ -22,9 +22,15 @@ public class TaskAspect {
             LoggerFactory.getLogger(TaskAspect.class);
 
     @Around("@annotation(LogCreateEntity)")
-    public Object logCreateNewEntityFromDto(final ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logCreateNewEntityFromDto(final ProceedingJoinPoint joinPoint) {
         log.info("Hello from aspect! Before create Task");
-        Object res = joinPoint.proceed();
+        Object res = null;
+        try {
+            res = joinPoint.proceed();
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
         log.info("Hello from aspect! After create Task");
         log.info("Task = " + res);
         return res;
