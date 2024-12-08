@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.mahotin.kafka.KafkaServiceProducer;
 import ru.mahotin.service.TaskService;
 import ru.mahotin.web.dto.TaskGetDTO;
 import ru.mahotin.web.dto.TaskUpdateDTO;
@@ -20,9 +21,11 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TaskController {
     private final TaskService taskService;
+    private final KafkaServiceProducer kafkaServiceProducer;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, KafkaServiceProducer kafkaServiceProducer) {
         this.taskService = taskService;
+        this.kafkaServiceProducer = kafkaServiceProducer;
     }
 
      @GetMapping("/{id}")
@@ -51,6 +54,11 @@ public class TaskController {
     ) {
         return taskService.update(taskUpdateDTO, id);
 
+    }
+
+    @GetMapping("/send")
+    public void sendToKafka() {
+        kafkaServiceProducer.sendMessageWithCallBack("status-topic", "test send to kafka!");
     }
 
 }
