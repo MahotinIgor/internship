@@ -8,5 +8,9 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    statusTopic: "status-topic"
+
 server:
   port: 8081
