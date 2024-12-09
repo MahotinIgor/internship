@@ -9,8 +9,10 @@ spring:
     generate-ddl: true
     show-sql: true
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: "localhost:9092"
     statusTopic: "status-topic"
+    consumer:
+      group-id: "group-1"
 
 server:
   port: 8081
