@@ -1,11 +1,7 @@
 package ru.mahotin.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "task")
@@ -15,6 +11,8 @@ public class Task {
     private Long id;
     private String title;
     private String description;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
     private Long userId;
 
     public Long getId() {
@@ -34,9 +32,13 @@ public class Task {
                 '}';
     }
 
-    public Task(final String title, final String description, final Long userId) {
+    public Task(final String title,
+                final String description,
+                final String status,
+                final Long userId) {
         this.title = title;
         this.description = description;
+        this.status = Status.fromText(status);
         this.userId = userId;
     }
 
@@ -56,6 +58,10 @@ public class Task {
         this.description = description;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+    
     public Long getUserId() {
         return userId;
     }
