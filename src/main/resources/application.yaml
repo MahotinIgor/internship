@@ -1,18 +1,30 @@
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://localhost:5488/db
-    username: user
-    password: password
+    url: ${db_url}
+    username: ${db_user}
+    password: ${db_password}
 
   jpa:
     generate-ddl: true
     show-sql: true
   kafka:
-    bootstrap-servers: "localhost:9092"
-    statusTopic: "status-topic"
+    bootstrap-servers: ${kafka_bootstrap_servers}
+    statusTopic: ${kafka_status_topic}
     consumer:
-      group-id: "group-1"
+      group-id: ${kafka_groupid}
+      timeout: ${kafka_consumer_timeout}
+      max-partition-fetch-bytes: ${kafka_max_partition_fetch_bytes}
+      max-poll-records: ${kafka_max_poll_records}
+      max-poll-intervals: ${kafka_max-poll-intervals}
+  mail:
+    host: ${spring_mail_host}
+    port: ${spring_mail_port}
+    username: ${spring_mail_username}
+    password: ${spring_mail_password}
+    protocol: ${spring_mail_protocol}
 
 server:
-  port: 8081
+  port: ${server_port}
