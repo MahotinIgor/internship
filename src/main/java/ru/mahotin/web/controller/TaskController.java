@@ -1,7 +1,5 @@
 package ru.mahotin.web.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import ru.mahotin.kafka.KafkaServiceProducer;
@@ -69,12 +67,5 @@ public class TaskController {
                 newTaskStatus
         );
         return updatedTask;
-
     }
-
-    @GetMapping("/send")
-    public void sendToKafka() {
-        kafkaServiceProducer.sendMessageWithCallBack("status-topic", new StatusTaskDTO(1, "done"));
-    }
-
 }
