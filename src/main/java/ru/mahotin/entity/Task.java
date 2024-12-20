@@ -19,6 +19,7 @@ public class Task {
         return id;
     }
 
+
     public Task() {
     }
 
@@ -40,6 +41,10 @@ public class Task {
         this.description = description;
         this.status = Status.fromText(status);
         this.userId = userId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
