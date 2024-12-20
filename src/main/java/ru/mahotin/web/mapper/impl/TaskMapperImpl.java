@@ -13,6 +13,7 @@ public class TaskMapperImpl implements TaskMapper<Task,TaskUpdateDTO, TaskGetDTO
         return new Task(
                 dto.title(),
                 dto.description(),
+                dto.status(),
                 dto.userId()
         );
     }
@@ -23,6 +24,7 @@ public class TaskMapperImpl implements TaskMapper<Task,TaskUpdateDTO, TaskGetDTO
                 entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
+                entity.getStatus().getTitle(),
                 entity.getUserId()
         );
     }

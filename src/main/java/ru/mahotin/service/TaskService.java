@@ -12,4 +12,6 @@ public interface TaskService {
     TaskGetDTO create(TaskUpdateDTO taskUpdateDTO);
     TaskGetDTO update(TaskUpdateDTO taskUpdateDTO, Long taskId);
     void delete(Long id);
+
+    TaskGetDTO updateStatusTask(Long id, String status);
 }

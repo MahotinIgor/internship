@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.mahotin.aspect.LogCreateEntity;
 import ru.mahotin.aspect.LogDeleteTask;
 import ru.mahotin.aspect.LogErrorGetTaskById;
+import ru.mahotin.entity.Status;
 import ru.mahotin.repository.TaskRepository;
 import ru.mahotin.entity.Task;
 import ru.mahotin.exception.TaskNotFoundException;
@@ -85,5 +86,18 @@ public class TaskServiceImpl implements TaskService {
     @LogDeleteTask
     public void delete(final Long id) {
         taskRepository.deleteById(id);
+    }
+
+    @Override
+    public TaskGetDTO updateStatusTask(Long taskId, String status) {
+        Task taskInDB = taskRepository
+                .findById(taskId)
+                .orElseThrow(
+                        () -> new TaskNotFoundException("User not found"));
+        taskInDB.setStatus(Status.fromText(status));
+        return taskMapper
+                .dtoFromEntity(
+                        taskRepository.save(taskInDB)
+                );
     }
 }

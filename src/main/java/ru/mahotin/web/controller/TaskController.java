@@ -1,16 +1,10 @@
 package ru.mahotin.web.controller;
 
-
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+import ru.mahotin.kafka.KafkaServiceProducer;
 import ru.mahotin.service.TaskService;
+import ru.mahotin.web.dto.StatusTaskDTO;
 import ru.mahotin.web.dto.TaskGetDTO;
 import ru.mahotin.web.dto.TaskUpdateDTO;
 
@@ -19,10 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
+    @Value("${spring.kafka.statusTopic}")
+    private String kafkaTopic;
     private final TaskService taskService;
+    private final KafkaServiceProducer kafkaServiceProducer;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, KafkaServiceProducer kafkaServiceProducer) {
         this.taskService = taskService;
+        this.kafkaServiceProducer = kafkaServiceProducer;
     }
 
      @GetMapping("/{id}")
@@ -53,4 +51,21 @@ public class TaskController {
 
     }
 
+    @PutMapping()
+    public TaskGetDTO updateStatusTaskById(
+            @RequestParam("id") final Long id,
+            @RequestParam("status") final String status
+    ) {
+        TaskGetDTO updatedTask =  taskService.updateStatusTask(id, status);
+        StatusTaskDTO newTaskStatus = new StatusTaskDTO(
+                updatedTask.id(),
+                updatedTask.status()
+        );
+
+        kafkaServiceProducer.sendMessageWithCallBack(
+                kafkaTopic,
+                newTaskStatus
+        );
+        return updatedTask;
+    }
 }
