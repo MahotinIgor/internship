@@ -85,6 +85,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @LogDeleteTask
     public void delete(final Long id) {
+        taskRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new TaskNotFoundException("User not found"));
         taskRepository.deleteById(id);
     }
 
