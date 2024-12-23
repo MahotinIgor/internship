@@ -23,6 +23,14 @@ public class Task {
     public Task() {
     }
 
+    public Task(Long id, String title, String description, Status status, Long userId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
