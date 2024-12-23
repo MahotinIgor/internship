@@ -18,12 +18,13 @@ import ru.mahotin.exception.TaskNotFoundException;
 @Aspect
 @Order(2)
 public class TaskAspect {
-    static final Logger log =
+    private final Logger log =
             LoggerFactory.getLogger(TaskAspect.class);
 
     @Around("@annotation(LogCreateEntity)")
     public Object logCreateNewEntityFromDto(final ProceedingJoinPoint joinPoint) {
         log.info("Hello from aspect! Before create Task");
+
         Object res = null;
         try {
             res = joinPoint.proceed();
