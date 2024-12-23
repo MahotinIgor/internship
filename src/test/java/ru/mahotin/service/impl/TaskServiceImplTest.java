@@ -110,7 +110,11 @@ class TaskServiceImplTest {
 
     @Test
     void create() {
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO("title", "description", "status", 1L);
+        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
+                "title",
+                "description",
+                "status",
+                1L);
         Task task = new Task();
         task.setId(2L);
         task.setTitle("title");
@@ -120,7 +124,8 @@ class TaskServiceImplTest {
 
         when(taskMapper.entityFromDto(taskUpdateDTO)).thenReturn(task);
         when(taskRepository.save(task)).thenReturn(task);
-        when(taskMapper.dtoFromEntity(task)).thenReturn(new TaskGetDTO(2L,
+        when(taskMapper.dtoFromEntity(task)).thenReturn(
+                new TaskGetDTO(2L,
                 "title",
                 "description",
                 "in_progress",
@@ -137,7 +142,11 @@ class TaskServiceImplTest {
 
     @Test
     void update() {
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO("updated title", "updated description", "status", 1L);
+        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
+                "updated title",
+                "updated description",
+                "status",
+                1L);
         Task task = new Task();
         task.setId(2L);
         task.setTitle("mock status");
@@ -164,7 +173,11 @@ class TaskServiceImplTest {
 
     @Test
     void updateTaskNotFound() {
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO("updated title", "updated description", "status", 1L);
+        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
+                "updated title",
+                "updated description",
+                "status",
+                1L);
 
         when(taskRepository.findById(any())).thenReturn(Optional.empty());
 
