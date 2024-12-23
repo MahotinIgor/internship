@@ -38,7 +38,6 @@ class TaskServiceImplTest {
     @BeforeEach()
     void setUp() {
 
-
     }
 
     @Test
@@ -67,6 +66,7 @@ class TaskServiceImplTest {
         assertEquals(1L, res.userId());
     }
     @Test
+    @DisplayName("Поиск Task по taskId: TaskNotFoundException")
     void getByIdTaskNotFound() {
         when(taskRepository.findById(any())).thenReturn(Optional.empty());
 
@@ -74,6 +74,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Поиск всех Task")
     void getAll() {
         Task task1 = new Task();
         task1.setId(2L);
@@ -109,6 +110,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Создание Task")
     void create() {
         TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
                 "title",
@@ -141,6 +143,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Обновление Task")
     void update() {
         TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
                 "updated title",
@@ -172,6 +175,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Обновление Task: TaskNotFoundException")
     void updateTaskNotFound() {
         TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(
                 "updated title",
@@ -185,6 +189,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Удаление Task")
     void delete() {
         Long taskId = 1L;
         Task task = new Task();
@@ -200,6 +205,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Удаление Task: TaskNotFoundException")
     void deleteTaskNotFound() {
         when(taskRepository.findById(1L)).thenReturn(Optional.empty());
         assertThrows(TaskNotFoundException.class, () -> taskService.delete(1L));
@@ -207,6 +213,7 @@ class TaskServiceImplTest {
     }
 
     @Test
+    @DisplayName("Обновление статуса Task")
     void updateStatusTask() {
         Long taskId = 2L;
         String newStatus = "done";
