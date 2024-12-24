@@ -18,6 +18,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 import ru.mahotin.entity.Status;
 import ru.mahotin.entity.Task;
@@ -37,7 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(classes = Main.class)
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
-class DemoApplicationTests extends TestContainer {
+class DemoApplicationTests extends TestContainer
+{
 
     @Autowired
     TaskServiceImpl taskService;
@@ -52,7 +54,8 @@ class DemoApplicationTests extends TestContainer {
 
     @BeforeAll
     static void setUp() {
-        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:latest"));
+
+        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.2.1"));
         kafkaContainer.start();
 
         Properties producerProps = new Properties();

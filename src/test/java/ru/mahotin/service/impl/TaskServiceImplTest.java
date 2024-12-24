@@ -128,10 +128,10 @@ class TaskServiceImplTest {
         when(taskRepository.save(task)).thenReturn(task);
         when(taskMapper.dtoFromEntity(task)).thenReturn(
                 new TaskGetDTO(2L,
-                "title",
-                "description",
-                "in_progress",
-                1L));
+                        "title",
+                        "description",
+                        "in_progress",
+                        1L));
 
         TaskGetDTO res = taskService.create(taskUpdateDTO);
         assertNotNull(res);
