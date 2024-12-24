@@ -110,9 +110,10 @@ class DemoApplicationTests extends TestContainer
     @Test
     @DisplayName("Обновление Task")
     void update() {
+        Long taskId = 1L;
         TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO("updated title", "updated description", "in_progress", 1L);
         Task task = new Task();
-        task.setId(2L);
+        task.setId(taskId);
         task.setTitle("mock status");
         task.setDescription("mock description");
         task.setStatus(Status.IN_PROGRESS);
@@ -120,9 +121,9 @@ class DemoApplicationTests extends TestContainer
 
         taskRepository.save(task);
 
-        TaskGetDTO res = taskService.update(taskUpdateDTO, 2L);
+        TaskGetDTO res = taskService.update(taskUpdateDTO, taskId);
         assertNotNull(res);
-        assertEquals(2L, res.id());
+        assertEquals(taskId, res.id());
         assertEquals("updated title", res.title());
         assertEquals("updated description", res.description());
         assertEquals("in_progress", res.status());
@@ -132,8 +133,8 @@ class DemoApplicationTests extends TestContainer
     @Test
     @DisplayName("Обновление статуса Task")
     void updateStatusTask() {
-        Long taskId = 2L;
-        String newStatus = "completed";
+        Long taskId = 1L;
+        String newStatus = "done";
         Task task = new Task();
         task.setId(taskId);
         task.setTitle("mock status");
@@ -155,7 +156,7 @@ class DemoApplicationTests extends TestContainer
     @Test
     @DisplayName("Удаление Task")
     void delete() {
-        Long taskId = 2L;
+        Long taskId = 1L;
         Task task = new Task();
         task.setId(taskId);
         task.setTitle("mock title");
