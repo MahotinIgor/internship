@@ -6,17 +6,18 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import ru.mahotin.kafka.KafkaServiceConsumer;
 import ru.mahotin.service.MailService;
+import ru.mahotin.service.props.MailProperties;
 import ru.mahotin.web.dto.StatusTaskDTO;
 
 @Service
 @Slf4j
 public class KafkaServiceConsumerImpl implements KafkaServiceConsumer {
     private final MailService mailService;
-    @Value("${spring.mail.username}")
-    private String userName;
+    private final MailProperties props;
 
-    public KafkaServiceConsumerImpl(MailService mailService) {
+    public KafkaServiceConsumerImpl(MailService mailService, MailProperties props) {
         this.mailService = mailService;
+        this.props = props;
     }
 
     @KafkaListener(groupId = "group-1", topics = "status-topic")
@@ -36,6 +37,6 @@ public class KafkaServiceConsumerImpl implements KafkaServiceConsumer {
                     message.newStatus()
             );
         }
-        mailService.sendSimpleMessage(userName,subject,text);
+        mailService.sendSimpleMessage(props.getUsername(), subject,text);
     }
 }
