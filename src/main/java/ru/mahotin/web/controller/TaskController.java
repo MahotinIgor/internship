@@ -1,7 +1,10 @@
 package ru.mahotin.web.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.mahotin.exception.TaskNotFoundException;
 import ru.mahotin.kafka.KafkaServiceProducer;
 import ru.mahotin.service.TaskService;
 import ru.mahotin.web.dto.StatusTaskDTO;
@@ -67,5 +70,9 @@ public class TaskController {
                 newTaskStatus
         );
         return updatedTask;
+    }
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<String> handleTaskNotFoundException(TaskNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

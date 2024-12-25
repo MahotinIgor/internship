@@ -19,7 +19,16 @@ public class Task {
         return id;
     }
 
+
     public Task() {
+    }
+
+    public Task(Long id, String title, String description, Status status, Long userId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.userId = userId;
     }
 
     @Override
@@ -40,6 +49,10 @@ public class Task {
         this.description = description;
         this.status = Status.fromText(status);
         this.userId = userId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
