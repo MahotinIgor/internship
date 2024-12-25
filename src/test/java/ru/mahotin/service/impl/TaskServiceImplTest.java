@@ -35,11 +35,6 @@ class TaskServiceImplTest {
     @InjectMocks
     private TaskServiceImpl taskService;
 
-    @BeforeEach()
-    void setUp() {
-
-    }
-
     @Test
     @DisplayName("Поиск Task по taskId")
     void getById() {

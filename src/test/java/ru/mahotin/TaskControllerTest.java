@@ -1,36 +1,3 @@
-//package ru.mahotin;
-//
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.annotation.DirtiesContext;
-//import org.springframework.test.web.servlet.MockMvc;
-//
-//import ru.mahotin.entity.Status;
-//import ru.mahotin.entity.Task;
-//import ru.mahotin.repository.TaskRepository;
-//
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@AutoConfigureMockMvc
-//public class TaskControllerTest extends TestContainer {
-//
-//    @Autowired
-//    MockMvc mockMvc;
-//    @Autowired
-//    TaskRepository taskRepository;
-
-
 package ru.mahotin;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -67,10 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @DirtiesContext
     @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
     public class TaskControllerTest extends TestContainer {
-
         @Autowired
         MockMvc mockMvc;
-
         @Autowired
         TaskRepository taskRepository;
 
@@ -98,10 +63,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
             consumer = new KafkaConsumer<>(consumerProps);
             consumer.subscribe(Collections.singletonList("test-topic"));
-
-//        DataSource dataSource = new DriverManagerDataSource(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
-//        jdbcTemplate = new JdbcTemplate(dataSource);
-//        jdbcTemplate.execute("CREATE TABLE test_table (id SERIAL PRIMARY KEY, value VARCHAR(255))");
         }
 
         @AfterAll
@@ -205,6 +166,4 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$[0].title").value("title1"))
                     .andExpect(jsonPath("$[1].title").value("title2"));
         }
-
     }
-

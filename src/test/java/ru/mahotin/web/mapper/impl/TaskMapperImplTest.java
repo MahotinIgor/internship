@@ -1,6 +1,7 @@
 package ru.mahotin.web.mapper.impl;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.mahotin.entity.Status;
 import ru.mahotin.entity.Task;
@@ -19,6 +20,7 @@ class TaskMapperImplTest {
     }
 
     @Test
+    @DisplayName("Маппинг Task from DTO")
     void entityFromDto() {
         TaskUpdateDTO dto = new TaskUpdateDTO("title",
                 "description",
@@ -34,6 +36,7 @@ class TaskMapperImplTest {
     }
 
     @Test
+    @DisplayName("Маппинг DTO from Task")
     void dtoFromEntity() {
         Task task = new Task(1L,
                 "title",
